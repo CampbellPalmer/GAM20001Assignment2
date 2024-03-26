@@ -6,9 +6,12 @@ using UnityEngine.InputSystem;
 
 public class InputHandling : MonoBehaviour
 {
+    public CharacterPhysics characterPhysics;
+
     InputAction jumpAction;
     InputAction walkAction;
-    private void Start()
+
+    public void Start()
     {
         jumpAction = InputSystem.actions.FindAction("Jump");
         walkAction = InputSystem.actions.FindAction("Move");
@@ -18,13 +21,14 @@ public class InputHandling : MonoBehaviour
         if (jumpAction.WasPressedThisFrame())
         {
             Debug.Log("Jump");
+            characterPhysics.jump();
         }
-        
+
         if (walkAction.WasPressedThisFrame())
         {
             Debug.Log(walkAction.ReadValue<Vector2>());
+            characterPhysics.walk(walkAction.ReadValue<Vector2>());
         }
     }
 
-    
 }
